@@ -1,0 +1,322 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.font-display {
+  font-family: var(--font-outfit);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 142 100% 50%; /* #00FF88 */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Cyberpunk Metrics Grid */
+.cyberpunk-metric-card {
+  @apply bg-gray-900/50 border border-primary/30 rounded-xl p-4 flex flex-col relative overflow-hidden transition-all duration-300;
+  backdrop-filter: blur(2px);
+}
+
+.cyberpunk-metric-card:hover {
+  @apply border-primary/70 bg-primary/10;
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px hsla(var(--primary) / 0.2);
+}
+
+.metric-icon {
+  @apply transition-transform duration-300;
+}
+
+.cyberpunk-metric-card:hover .metric-icon {
+  transform: scale(1.1);
+}
+
+/* --- Unique Icon Animations --- */
+
+/* Order Flow */
+.animate-flow-pulse {
+  animation: flow-pulse 2s ease-in-out infinite;
+}
+@keyframes flow-pulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+/* Market Regime */
+.animate-regime-pulse {
+  animation: regime-pulse 3s ease-in-out infinite;
+}
+@keyframes regime-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Market Sentiment */
+.animate-sentiment-wave {
+  animation: sentiment-wave 4s ease-in-out infinite;
+}
+@keyframes sentiment-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-3px);
+  }
+  75% {
+    transform: translateY(3px);
+  }
+}
+
+/* Fractal Dimension */
+.animate-fractal-grow {
+  animation: fractal-grow 5s ease-in-out infinite;
+}
+@keyframes fractal-grow {
+  0%,
+  100% {
+    transform: rotate(-5deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.1);
+  }
+}
+
+/* IV Surface Skew */
+.animate-iv-skew {
+  animation: iv-skew 3s ease-in-out infinite;
+}
+@keyframes iv-skew {
+  0%,
+  100% {
+    transform: skewX(0deg);
+  }
+  50% {
+    transform: skewX(15deg);
+  }
+}
+
+/* Correlation Matrix */
+.animate-corr-pulse {
+  animation: corr-pulse 2.5s ease-in-out infinite;
+}
+@keyframes corr-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px hsla(var(--primary) / 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px hsla(var(--primary) / 0.8));
+  }
+}
+
+/* Liquidity Depth */
+.animate-liquidity-bubble {
+  animation: liquidity-bubble 3s ease-in-out infinite;
+}
+@keyframes liquidity-bubble {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Volatility Smile */
+.animate-smile-morph {
+  animation: smile-morph 4s ease-in-out infinite;
+}
+@keyframes smile-morph {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.8);
+  }
+}
+
+/* --- Visualizations --- */
+
+/* Order Flow Meter */
+.flow-meter {
+  @apply w-full bg-gray-700/50 rounded-full h-2 overflow-hidden;
+}
+
+.flow-fill {
+  @apply h-full rounded-full transition-all duration-500 ease-in-out;
+}
+
+/* Liquidity Chart */
+.liquidity-chart {
+  @apply w-full h-16 flex items-end justify-center gap-1;
+}
+
+.liquidity-bar {
+  @apply flex-1 bg-primary/70 rounded-t-sm;
+  animation: liquidity-flow 2s ease-in-out infinite alternate;
+  transition: height 0.3s ease;
+}
+
+@keyframes liquidity-flow {
+  from {
+    transform: scaleY(0.2);
+    opacity: 0.5;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* IV Surface */
+.iv-surface {
+  @apply w-full h-16 flex items-end justify-center gap-1 [perspective:200px];
+}
+.iv-bar {
+  @apply flex-1 bg-gradient-to-t from-primary/50 to-primary rounded-t-sm;
+  animation: iv-wave 3s ease-in-out infinite;
+}
+@keyframes iv-wave {
+  0%,
+  100% {
+    transform: rotateX(20deg) scaleY(0.5);
+  }
+  50% {
+    transform: rotateX(20deg) scaleY(1);
+  }
+}
+
+/* Correlation Matrix */
+.corr-matrix {
+  @apply w-full aspect-square grid grid-cols-4 gap-1;
+}
+.corr-cell {
+  @apply rounded-sm transition-colors duration-500;
+}
+
+/* Regime Blocks */
+.regime-blocks {
+  @apply w-full grid grid-cols-4 gap-2;
+}
+.regime-block {
+  @apply h-8 rounded-sm bg-primary/20 transition-all duration-300;
+}
+.regime-block.active {
+  @apply bg-primary/80 shadow-[0_0_10px_hsla(var(--primary)/0.7)];
+}
