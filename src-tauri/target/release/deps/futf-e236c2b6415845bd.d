@@ -1,0 +1,7 @@
+/Users/Sage/Downloads/nexus-cipher-app/src-tauri/target/release/deps/futf-e236c2b6415845bd.d: /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futf-0.1.5/src/lib.rs
+
+/Users/Sage/Downloads/nexus-cipher-app/src-tauri/target/release/deps/libfutf-e236c2b6415845bd.rlib: /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futf-0.1.5/src/lib.rs
+
+/Users/Sage/Downloads/nexus-cipher-app/src-tauri/target/release/deps/libfutf-e236c2b6415845bd.rmeta: /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futf-0.1.5/src/lib.rs
+
+/Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futf-0.1.5/src/lib.rs:

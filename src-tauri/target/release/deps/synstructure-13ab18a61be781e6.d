@@ -1,0 +1,8 @@
+/Users/Sage/Downloads/nexus-cipher-app/src-tauri/target/release/deps/synstructure-13ab18a61be781e6.d: /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/lib.rs /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/macros.rs
+
+/Users/Sage/Downloads/nexus-cipher-app/src-tauri/target/release/deps/libsynstructure-13ab18a61be781e6.rlib: /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/lib.rs /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/macros.rs
+
+/Users/Sage/Downloads/nexus-cipher-app/src-tauri/target/release/deps/libsynstructure-13ab18a61be781e6.rmeta: /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/lib.rs /Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/macros.rs
+
+/Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/lib.rs:
+/Users/Sage/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/macros.rs:
