@@ -1,3 +1,179 @@
+Nexus Encryption
+================
+
+Enterprise‑grade, desktop‑first encryption app built with Next.js 15 + React 19 (frontend) and Tauri (Rust) for a hardened native experience. Designed for modern teams that care about cryptography, DX, and ship‑ready automation.
+
+Quick start
+-----------
+
+```bash
+# Install deps
+pnpm install
+
+# Run web UI for the Tauri shell to load (port 3020)
+PORT=3020 pnpm dev
+
+# In a second terminal, launch the desktop app
+pnpm tauri dev
+
+# Build signed desktop bundles (configure signing for macOS/Windows first)
+pnpm tauri build
+```
+
+Why this exists (and what you get)
+----------------------------------
+
+- Strong, modern crypto primitives: **AES‑256‑GCM**, ChaCha20‑Poly1305 (via AES‑GCM simulation), **PBKDF2** key derivation, **CSPRNG** via `crypto.getRandomValues()`.
+- Desktop‑native security with **Tauri**: small footprint, Rust backend, **OS keychain** integration for secrets.
+- Defense‑in‑depth: strict CSP, HSTS, COOP/COEP/CORP, X‑Frame‑Options, Permissions‑Policy, input validation/sanitization, centralized error handling, rate limiting.
+- Thorough tests: unit, component, performance, chaos, and stress tests (Vitest + JSDOM + workers) with clear reports.
+- Operational polish: CI/CD for releases, SBOM + OSV scanning, PWA manifest, SEO, docs, and deploy scripts.
+
+Architecture at a glance
+------------------------
+
+```mermaid
+flowchart TD
+  subgraph Desktop[Tauri Desktop App]
+    UI[Next.js 15 + React 19 UI]
+    Hooks[Custom Hooks: clipboard, hotkeys, virtual scroll]
+    Crypto[CryptoUtils: AES‑GCM, PBKDF2, RNG]
+    Validate[InputValidator]
+    Errors[ErrorHandler]
+    Audit[SecurityAuditor]
+    Store[SecureStore]
+  end
+
+  subgraph Tauri[Rust Backend]
+    Keychain[(OS Keychain)]
+    Cmds{{Commands: keychain_set/get/delete, greet}}
+  end
+
+  UI --> Crypto
+  UI --> Validate
+  UI --> Errors
+  UI --> Audit
+  Crypto <--> Store
+  Store <--> Cmds
+  Cmds <--> Keychain
+```
+
+How encryption works (high level)
+---------------------------------
+
+1. A key is derived from a passphrase using **PBKDF2** (configurable iterations/salt).
+2. A random **IV** (12 bytes) is generated via CSPRNG.
+3. Plaintext is encrypted with **AES‑256‑GCM** to produce `ciphertext + auth tag`.
+4. Result is encoded (base64) alongside IV and algorithm metadata.
+5. On decrypt, the same derivation + AES‑GCM verifies the tag; tampering fails safely.
+
+Key features by module
+----------------------
+
+- `lib/crypto-utils.ts`: crypto primitives (AES‑GCM, PBKDF2, RNG, key strength analysis, helpers).
+- `lib/secure-store.ts`: seamless storage using Tauri keychain when available, localStorage fallback in web.
+- `lib/input-validator.ts`: comprehensive validation and sanitization for user inputs and filenames.
+- `lib/error-handler.ts`: central error capture, severity levels, structured logs.
+- `lib/security-auditor.ts`: automated configuration checks and a summarized report.
+- `lib/rate-limiter.ts`: in‑memory limiter with cleanup to throttle abusive actions.
+- `components/nexus-cipher.tsx`: primary UI including the Key Generator tab.
+- `src-tauri/src/main.rs`: Rust commands (`keychain_set/get/delete`) and app bootstrapping.
+
+Detailed architecture
+---------------------
+
+See `ARCHITECTURE.md` for diagrams (component, sequence, and data‑flow), threat model, error strategy, and performance notes.
+
+Local development
+-----------------
+
+```bash
+pnpm install
+PORT=3020 pnpm dev          # Next.js dev server for the UI
+pnpm tauri dev              # Tauri shell running the desktop app
+```
+
+Testing & quality
+-----------------
+
+```bash
+pnpm test:all          # run unit, component, performance, chaos, stress
+pnpm test:unit
+pnpm test:component
+pnpm test:performance
+pnpm test:security
+pnpm typecheck
+```
+
+Notes:
+- Stress tests that simulate extremely heavy crypto workloads may be constrained by JSDOM; real desktop runs are faster and more reliable.
+- Coverage is configured via Vitest; see `TESTING.md` for structure and results.
+
+Security hardening
+------------------
+
+- Strong CSP, HSTS, frame/embedding protections, COOP/COEP/CORP, Permissions‑Policy.
+- Input validation and sanitization across UI entry points.
+- Centralized error handling with categorized severity and structured logging.
+- Rate limiting for expensive or potentially exploitable operations.
+- Tauri keychain for secrets (macOS Keychain, Windows Credential Manager, etc.).
+- SBOM generation + OSV vulnerability scanning in CI.
+
+CI/CD & releases
+----------------
+
+- GitHub Actions workflow: `.github/workflows/tauri-release.yml` (builds, SBOM, OSV scan, Tauri release).
+- Configure secrets for macOS notarization/signing and Windows signing as needed.
+- Tauri’s updater is wired; generate your private key and store it securely; publish the public key.
+
+Deployment
+----------
+
+- Desktop: `pnpm tauri build` creates platform installers in `src-tauri/target/`.
+- Web preview/PWA: Next.js build output; see `DEPLOYMENT.md` for Docker and hosting details.
+
+Project layout (selected)
+-------------------------
+
+```
+app/                  # Next.js app router
+components/           # UI and composables (Key Generator lives here)
+hooks/                # Clipboard, theme, keyboard, virtual scroll
+lib/                  # Crypto, validation, auditing, logging, utilities
+src-tauri/            # Rust backend + Tauri configuration
+__tests__/            # Unit, component, performance, chaos, stress
+```
+
+Compliance & docs
+-----------------
+
+- `SECURITY.md` – security posture and headers
+- `TESTING.md` – test matrix and guidance
+- `DEPLOYMENT.md` – web/desktop/docker deployment
+- `COMPLIANCE.md`, `PRIVACY_POLICY.md`, `TERMS_OF_SERVICE.md`, `LICENSE.md`
+- `PRE_LAUNCH_CHECKLIST.md`, `PRODUCTION_READINESS_REPORT.md`, `CHANGELOG.md`
+
+Troubleshooting
+---------------
+
+- If Tauri cannot find the UI dev server, ensure you used `PORT=3020 pnpm dev` and that `src-tauri/tauri.conf.json` points to that port.
+- If unit tests fail due to environment APIs, confirm `test-setup.ts` is loaded and mocks are applied (see `vitest.config.mjs`).
+
+Contributing
+------------
+
+Issues and pull requests are welcome. Please keep security discussions focused and actionable. For high‑risk findings, disclose privately first.
+
+License
+-------
+
+MIT — see `LICENSE.md`.
+
+Final note
+----------
+
+This app is intentionally both practical and paranoid: human‑friendly UX on the surface, obsessive cryptographic hygiene underneath. Encrypt boldly.
+
 # Nexus Encryption
 
 **Enterprise-grade encryption and security platform**
