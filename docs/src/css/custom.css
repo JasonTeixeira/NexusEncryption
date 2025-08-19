@@ -1,0 +1,13 @@
+:root {
+  --ifm-color-primary: #6c5ce7;
+  --ifm-color-primary-dark: #5a4ad8;
+  --ifm-color-primary-darker: #4b3fbe;
+  --ifm-color-primary-light: #887df0;
+}
+
+.heroBanner {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+

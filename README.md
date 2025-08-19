@@ -32,31 +32,7 @@ Why this exists (and what you get)
 Architecture at a glance
 ------------------------
 
-```mermaid
-flowchart TD
-  subgraph Desktop[Tauri Desktop App]
-    UI[Next.js 15 + React 19 UI]
-    Hooks[Custom Hooks: clipboard, hotkeys, virtual scroll]
-    Crypto[CryptoUtils: AES‑GCM, PBKDF2, RNG]
-    Validate[InputValidator]
-    Errors[ErrorHandler]
-    Audit[SecurityAuditor]
-    Store[SecureStore]
-  end
-
-  subgraph Tauri[Rust Backend]
-    Keychain[(OS Keychain)]
-    Cmds{{Commands: keychain_set/get/delete, greet}}
-  end
-
-  UI --> Crypto
-  UI --> Validate
-  UI --> Errors
-  UI --> Audit
-  Crypto <--> Store
-  Store <--> Cmds
-  Cmds <--> Keychain
-```
+See the full docs site with diagrams at `docs/` or online (build with `pnpm -C docs build && pnpm -C docs serve`).
 
 How encryption works (high level)
 ---------------------------------

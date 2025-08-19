@@ -38,7 +38,10 @@
     "deploy:web": "./scripts/deploy.sh web",
     "deploy:desktop": "./scripts/deploy.sh desktop",
     "deploy:docker": "./scripts/deploy.sh docker",
-    "deploy:all": "./scripts/deploy.sh all"
+    "deploy:all": "./scripts/deploy.sh all",
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs build",
+    "docs:serve": "pnpm -C docs serve"
   },
   "dependencies": {
     "@edge-runtime/vm": "latest",
