@@ -1,6 +1,8 @@
 Nexus Encryption
 ================
 
+[![Docs](https://img.shields.io/badge/docs-website-6c5ce7)](https://jasonteixeira.github.io/NexusEncryption/) [![Docs Deploy](https://github.com/JasonTeixeira/NexusEncryption/actions/workflows/docs-deploy.yml/badge.svg)](https://github.com/JasonTeixeira/NexusEncryption/actions/workflows/docs-deploy.yml)
+
 Enterprise‑grade, desktop‑first encryption app built with Next.js 15 + React 19 (frontend) and Tauri (Rust) for a hardened native experience. Designed for modern teams that care about cryptography, DX, and ship‑ready automation.
 
 Quick start
