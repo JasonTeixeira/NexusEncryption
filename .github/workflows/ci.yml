@@ -20,18 +20,21 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
+
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: pnpm install --frozen-lockfile=false
 
       - name: Type check
         run: npm run typecheck
 
       - name: Run tests (jsdom)
-        run: npx vitest run --environment=jsdom --reporter=verbose
+        run: pnpm test:all
         continue-on-error: true
 
-      - name: Build static site
-        run: npm run build
+      - name: Build static export (for preview artifact)
+        run: pnpm run export
 
       - name: Upload static export artifact
         uses: actions/upload-artifact@v4
