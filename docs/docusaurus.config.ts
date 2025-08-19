@@ -6,6 +6,7 @@ const config: Config = {
   tagline: 'Enterprise-grade crypto, desktop-first.',
   url: 'https://jasonteixeira.github.io',
   baseUrl: '/NexusEncryption/',
+  trailingSlash: false,
   favicon: 'img/favicon.ico',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
